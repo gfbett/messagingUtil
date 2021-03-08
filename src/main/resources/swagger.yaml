@@ -1,0 +1,93 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "0.0.1"
+  title: "Message Util"
+basePath: "/v1/messaging"
+tags:
+- name: "producer"
+- name: "consumer"
+schemes:
+- "http"
+paths:
+  /produce:
+    post:
+      tags:
+      - "producer"
+      summary: "Produce messages"
+      operationId: "produce"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "producerConfig"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ProducerConfig"
+      responses:
+        "200":
+          description: Ok
+  /consume:
+    post:
+      tags:
+        - "consumer"
+      summary: "consume messages"
+      operationId: "consume"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "consumerConfig"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ConsumerConfig"
+      responses:
+        "200":
+          description: Ok
+
+
+definitions:
+  ProviderType:
+    type: "string"
+    description: "ProviderName"
+    enum: &PROVIDER
+      - "ZEROMQ"
+      - "KAFKA"
+      - "PULSAR"
+      - "RABBIT"
+      - "IBM"
+
+  ProducerConfig:
+    type: "object"
+    properties:
+      sizeFrom:
+        type: "integer"
+      sizeTo:
+        type: "integer"
+      quantity:
+        type: "integer"
+      provider:
+        type: string
+        enum: *PROVIDER
+        required: true
+      properties:
+        type: "object"
+        additionalProperties:
+          type: string
+
+  ConsumerConfig:
+    type: "object"
+    properties:
+      provider:
+        type: string
+        enum: *PROVIDER
+        required: true
+      properties:
+        type: "object"
+        additionalProperties:
+          type: string
+
