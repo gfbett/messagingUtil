@@ -1,11 +1,11 @@
 package com.santander.messaging.producers;
 
-import io.swagger.model.ProducerConfig;
+import io.swagger.model.MessagingProducerConfig;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProducerFactory {
-    public Producer getProducer(ProducerConfig.ProviderEnum type) {
+public class MessagingProducerFactory {
+    public Producer getProducer(MessagingProducerConfig.ProviderEnum type) {
         switch(type) {
             case ZEROMQ:
                 return new ZeroMQProducer();

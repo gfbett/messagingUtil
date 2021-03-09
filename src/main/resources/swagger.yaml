@@ -25,7 +25,7 @@ paths:
         in: "body"
         required: true
         schema:
-          $ref: "#/definitions/ProducerConfig"
+          $ref: "#/definitions/MessagingProducerConfig"
       responses:
         "200":
           description: Ok
@@ -44,7 +44,7 @@ paths:
           in: "body"
           required: true
           schema:
-            $ref: "#/definitions/ConsumerConfig"
+            $ref: "#/definitions/MessagingConsumerConfig"
       responses:
         "200":
           description: Ok
@@ -61,7 +61,7 @@ definitions:
       - "RABBIT"
       - "IBM"
 
-  ProducerConfig:
+  MessagingProducerConfig:
     type: "object"
     properties:
       sizeFrom:
@@ -79,7 +79,7 @@ definitions:
         additionalProperties:
           type: string
 
-  ConsumerConfig:
+  MessagingConsumerConfig:
     type: "object"
     properties:
       provider:

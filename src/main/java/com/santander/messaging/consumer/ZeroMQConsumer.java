@@ -1,12 +1,10 @@
 package com.santander.messaging.consumer;
 
-import com.santander.messaging.model.Message;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQException;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class ZeroMQConsumer extends Consumer {
@@ -26,17 +24,14 @@ public class ZeroMQConsumer extends Consumer {
     }
 
     @Override
-    protected void consume() {
+    protected void startConsumer(java.util.function.Consumer<String> consumer) {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 // Block until a message is received
                 byte[] reply = socket.recv(0);
 
-                Message message  = objectMapper.readValue(reply, Message.class);
-                System.out.println("Received: " + message);
+                consumer.accept(new String(reply));
                 socket.send("".getBytes(ZMQ.CHARSET), 0);
-            } catch (IOException e) {
-                throw new RuntimeException("Error reading message", e);
             } catch (ZMQException exception) {
                 System.err.println("Error reading message" + exception.getLocalizedMessage());
                 throw exception;

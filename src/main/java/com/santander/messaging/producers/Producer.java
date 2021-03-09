@@ -3,7 +3,7 @@ package com.santander.messaging.producers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santander.messaging.model.Message;
-import io.swagger.model.ProducerConfig;
+import io.swagger.model.MessagingProducerConfig;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Map;
@@ -16,7 +16,7 @@ public abstract class Producer {
         objectMapper = new ObjectMapper();
     }
 
-    public void produceMessages(ProducerConfig producerConfig) {
+    public void produceMessages(MessagingProducerConfig producerConfig) {
         initProducer(producerConfig.getProperties());
         sendMessages(producerConfig.getQuantity(), producerConfig.getSizeFrom(), producerConfig.getSizeTo());
     }
