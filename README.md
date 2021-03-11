@@ -56,7 +56,9 @@ Properties:
 - Producer:
     - bootstrap: Server url to connect to (ex: localhost:9092)
     - topic: Name of the topic where the messages will be published
+    - kafka.*: Properties starting with kafka will be passed without the kafka. prefix, for example using kafka.ssl.key.password will set the property ssl.key.password to the kafka client.
 - Consumer:
     - bootstrap: Server url to connect to (ex: localhost:9092)
     - topic: Name of the topic to consume
     - groupId: Group id for the consumer
+    - kafka.*: Properties starting with kafka will be passed without the kafka. prefix, for example using kafka.ssl.key.password will set the property ssl.key.password to the kafka client.

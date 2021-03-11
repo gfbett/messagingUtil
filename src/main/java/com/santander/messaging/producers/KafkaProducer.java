@@ -20,9 +20,22 @@ public class KafkaProducer extends Producer {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, producerConfig.get("bootstrap"));
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        putKafkaProps(props, producerConfig);
         ProducerFactory<String, String> producerFactory = new DefaultKafkaProducerFactory<>(props);
         template = new KafkaTemplate<>(producerFactory);
         topic = producerConfig.get("topic");
+    }
+
+    private void putKafkaProps(Map<String, Object> props, Map<String, String> producerConfig) {
+        String prefix = "kafka.";
+        producerConfig.keySet().stream()
+                .filter(key -> key.startsWith(prefix))
+                .forEach(key -> {
+                    String value = producerConfig.get(key);
+                    String propkey = key.substring(prefix.length());
+                    props.put(propkey, value);
+                    System.out.println("Adding property " + propkey );
+                });
     }
 
     @Override
