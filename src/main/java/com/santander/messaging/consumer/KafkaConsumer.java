@@ -1,5 +1,6 @@
 package com.santander.messaging.consumer;
 
+import com.santander.messaging.utils.KafkaUtils;
 import lombok.Setter;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -29,21 +30,10 @@ public class KafkaConsumer extends Consumer {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerConfig.get("groupId"));
-        putKafkaProps(props, consumerConfig);
+        KafkaUtils.putKafkaProps(props, consumerConfig);
+        KafkaUtils.addTrustStore(consumerConfig, props);
         DefaultKafkaConsumerFactory<String, String> cf = new DefaultKafkaConsumerFactory<>(props);
         container = new KafkaMessageListenerContainer<>(cf, containerProps);
-    }
-
-    private void putKafkaProps(Map<String, Object> props, Map<String, String> consumerConfig) {
-        String prefix = "kafka.";
-        consumerConfig.keySet().stream()
-                .filter(key -> key.startsWith(prefix))
-                .forEach(key -> {
-                    String value = consumerConfig.get(key);
-                    String propkey = key.substring(prefix.length());
-                    props.put(propkey, value);
-                    System.out.println("Adding property " + propkey );
-                });
     }
 
     @Override

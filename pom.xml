@@ -15,6 +15,7 @@
 	<description>Utility to produce/consume messages</description>
 	<properties>
 		<java.version>11</java.version>
+		<start-class>com.santander.messaging.MessagingUtilApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
