@@ -56,7 +56,7 @@ public class KafkaUtils {
 
             CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
             Collection<? extends Certificate> certificates = certFactory.generateCertificates(inputStream);
-            ks.setKeyEntry("key", decodedKey, certificates.toArray(Certificate[]::new));
+            ks.setKeyEntry("key", decodedKey, certificates.toArray(new Certificate[certificates.size()]));
             try (FileOutputStream fos = new FileOutputStream(path)) {
                 ks.store(fos, pwdArray);
             }

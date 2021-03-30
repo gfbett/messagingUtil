@@ -14,7 +14,7 @@
 	<name>messagingUtil</name>
 	<description>Utility to produce/consume messages</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<start-class>com.santander.messaging.MessagingUtilApplication</start-class>
 	</properties>
 	<dependencies>
@@ -78,6 +78,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.0</version>
 			</plugin>
 			<!--plugin>
 				<groupId>io.io.swagger</groupId>
