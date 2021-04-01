@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santander.messaging.model.Message;
 import io.swagger.model.MessagingProducerConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Map;
 
+@Slf4j
 public abstract class Producer {
 
     private ObjectMapper objectMapper;
@@ -25,7 +27,7 @@ public abstract class Producer {
         for (int i = 0; i < quantity; i++) {
             String payload = RandomStringUtils.randomAlphabetic(sizeFrom, sizeTo);
             Message message = new Message(i, payload);
-            System.out.println("Sending: " + message);
+            log.info("Sending: {}", message);
             String messageString;
             try {
                 messageString = objectMapper.writeValueAsString(message);

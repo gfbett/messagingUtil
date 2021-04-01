@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santander.messaging.model.Message;
 import io.swagger.model.MessagingConsumerConfig;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
+@Slf4j
 public abstract class Consumer {
 
     protected ObjectMapper objectMapper;
@@ -24,7 +26,7 @@ public abstract class Consumer {
         try {
             Message message  = null;
             message = objectMapper.readValue(messageString, Message.class);
-            System.out.println("Received: " + message);
+            log.info("Received: " + message);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error parsing message");
         }

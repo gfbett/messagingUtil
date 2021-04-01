@@ -1,10 +1,10 @@
 package com.santander.messaging.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.config.SslConfigs;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
-import java.security.KeyFactory;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
 
+@Slf4j
 public class KafkaUtils {
     public static void putKafkaProps(Map<String, Object> kafkaProps, Map<String, String> config) {
         String prefix = "kafka.";
@@ -22,7 +23,7 @@ public class KafkaUtils {
                     String value = config.get(key);
                     String propkey = key.substring(prefix.length());
                     kafkaProps.put(propkey, value);
-                    System.out.println("Adding property " + propkey );
+                    log.info("Adding property " + propkey );
                 });
     }
 
